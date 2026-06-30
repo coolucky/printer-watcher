@@ -1,0 +1,12 @@
+{
+  "enabled": false,
+  "offlineAlertEnabled": true,
+  "tonerAlertEnabled": true,
+  "fromEmail": "gopayscan@paypal.com",
+  "toEmails": "operator@example.com, user.qijue@example.com, user.gary@example.com, user.junjie@example.com",
+  "tonerThreshold": 5,
+  "dedupeWindowMinutes": 10,
+  "maxAlertsPerHour": 20,
+  "printerErrorAlertEnabled": true,
+  "serverAlertEnabled": true
+}

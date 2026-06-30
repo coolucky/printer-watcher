@@ -1,0 +1,10 @@
+# Printer Status Report - Windows部署指南
+
+## 部署说明
+1. 将dist目录中的可执行文件和相关资源复制到Windows服务器
+2. 根据之前生成的PACKAGING-GUIDE.md文档进行部署
+
+## 注意事项
+- 运行时需要确保可访问所有配置的打印机IP地址
+- 首次运行可能需要较长时间
+- 如遇到Puppeteer相关问题，可能需要手动安装Chromium

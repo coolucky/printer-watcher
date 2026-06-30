@@ -1,0 +1,79 @@
+[
+  {
+    "id": "admin-001",
+    "username": "admin",
+    "ntid": "Admin",
+    "email": "admin@example.com",
+    "passwordHash": "$2b$10$REDACTED_HASH_FOR_PUBLIC_REPO",
+    "role": "Administrator",
+    "createdAt": "2026-05-07T10:09:48.024Z",
+    "lastLogin": "2026-06-30T03:16:00.557Z",
+    "active": true
+  },
+  {
+    "id": "5d5cb2f2-14ed-4500-b8a6-2ee2a6fc2cc8",
+    "username": "testuser",
+    "ntid": "TEST001",
+    "email": "test@example.com",
+    "passwordHash": "$2b$10$REDACTED_HASH_FOR_PUBLIC_REPO",
+    "role": "Editor",
+    "createdAt": "2026-05-18T06:30:58.003Z",
+    "lastLogin": "2026-05-18T06:31:18.967Z",
+    "active": false
+  },
+  {
+    "id": "adc6e8c0-e52e-4cb1-bf9b-a5b69cf4f91e",
+    "username": "qijwang",
+    "ntid": "QIJUE_WANG",
+    "email": "user.qijue@example.com",
+    "passwordHash": "$2b$10$REDACTED_HASH_FOR_PUBLIC_REPO",
+    "role": "Editor",
+    "createdAt": "2026-05-18T07:41:11.138Z",
+    "lastLogin": null,
+    "active": false
+  },
+  {
+    "id": "d5d1cd1e-cae2-48bf-aef0-a27f3007aae7",
+    "username": "shhua",
+    "ntid": "STEVEN_HUA",
+    "email": "user.steven@example.com",
+    "passwordHash": "$2b$10$REDACTED_HASH_FOR_PUBLIC_REPO",
+    "role": "Administrator",
+    "createdAt": "2026-05-19T07:16:16.965Z",
+    "lastLogin": "2026-05-21T07:12:14.865Z",
+    "active": false
+  },
+  {
+    "id": "c4a3145b-85ad-457c-ac2f-1c85ab2f2c12",
+    "username": "jguo3",
+    "ntid": "GARY_GUO",
+    "email": "user.gary@example.com",
+    "passwordHash": "$2b$10$REDACTED_HASH_FOR_PUBLIC_REPO",
+    "role": "Editor",
+    "createdAt": "2026-05-19T07:16:46.693Z",
+    "lastLogin": null,
+    "active": false
+  },
+  {
+    "id": "c2cfc74f-90ae-40f0-a66c-df65552734b6",
+    "username": "zhufeng",
+    "ntid": "ZHUO_FENG",
+    "email": "user.zhuo@example.com",
+    "passwordHash": "$2b$10$REDACTED_HASH_FOR_PUBLIC_REPO",
+    "role": "Editor",
+    "createdAt": "2026-06-03T05:31:23.129Z",
+    "lastLogin": null,
+    "active": false
+  },
+  {
+    "id": "ec66a3f7-023a-4cdd-b3e8-1df227def5b3",
+    "username": "junyuan",
+    "ntid": "JUNJIE_YUAN",
+    "email": "user.junjie@example.com",
+    "passwordHash": "$2b$10$REDACTED_HASH_FOR_PUBLIC_REPO",
+    "role": "Editor",
+    "createdAt": "2026-06-06T18:01:13.862Z",
+    "lastLogin": null,
+    "active": false
+  }
+]

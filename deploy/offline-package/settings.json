@@ -1,0 +1,83 @@
+{
+  "configMeta": {
+    "schemaVersion": 1,
+    "revision": 3,
+    "updatedAt": "2026-06-23T06:34:53.194Z",
+    "updatedBy": "admin"
+  },
+  "email": {
+    "smtpServer": "10.0.100.1",
+    "smtpPort": "25",
+    "smtpUser": "",
+    "smtpPass": "",
+    "useTls": false,
+    "defaultFrom": "operator@example.com",
+    "defaultTo": "operator@example.com"
+  },
+  "papercut": {
+    "enabled": false,
+    "serverUrl": "",
+    "apiKey": "",
+    "host": "10.0.100.2",
+    "port": "9191",
+    "username": "admin",
+    "password": "PASSWORD_REDACTED"
+  },
+  "license": {
+    "expirationDate": "2028-09-30"
+  },
+  "monitoring": {
+    "printers": {
+      "intervalMs": 30000,
+      "backoffEnabled": false,
+      "backoffMultiplier": 1.5,
+      "maxIntervalMs": 120000
+    },
+    "printServers": {
+      "intervalMs": 30000,
+      "backoffEnabled": false,
+      "backoffMultiplier": 1.5,
+      "maxIntervalMs": 120000
+    }
+  },
+  "emailContacts": {
+    "senders": [
+      "operator@example.com",
+      "ppcnit@paypal.com",
+      "gopayscan@paypal.com"
+    ],
+    "recipients": [
+      "operator@example.com",
+      "china-bits-corpit@paypal.com",
+      "user.qijue@example.com",
+      "user.gary@example.com",
+      "user.junjie@example.com"
+    ],
+    "ccRecipients": [
+      "user.steven@example.com"
+    ]
+  },
+  "forgotPasswordEmail": "gopayscan@paypal.com",
+  "reportSettings": {
+    "emails": {
+      "fromEmail": "operator@example.com",
+      "toEmail": "china-bits-corpit@paypal.com",
+      "ccEmail": "user.steven@example.com"
+    },
+    "weeklySchedule": {
+      "enabled": true,
+      "dayOfWeek": 5,
+      "selectedStyle": 1,
+      "hour": 17,
+      "minute": 30,
+      "fromEmail": "operator@example.com",
+      "toEmail": "china-bits-corpit@paypal.com",
+      "ccEmail": "user.steven@example.com",
+      "savedAt": "2026-05-21T08:58:49.458Z"
+    },
+    "lastSentWeek": "2026-W23",
+    "sendingWeek": "",
+    "sendingStartedAt": "",
+    "lastSentAt": "2026-06-05T09:40:24.898Z"
+  }
+}

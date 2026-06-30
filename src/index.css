@@ -1,0 +1,331 @@
+/* 基础变量设置 */
+:root {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  /* 默认亮色主题变量 */
+  --primary-color: #646cff;
+  --primary-hover: #535bf2;
+  --text-primary: #213547;
+  --text-secondary: #64748b;
+  --background: #ffffff;
+  --background-primary: #ffffff;
+  --background-secondary: #f8fafc;
+  --background-paper: #ffffff;
+  --background-card: #ffffff;
+  --background-highlight: #fafafa;
+  --background-success-light: #e8f5e9;
+  --background-error-light: #ffebee;
+  --background-warning-light: #fff3e0;
+  --background-info-light: #f3e5f5;
+  --background-table-header: #ffd700;
+  --background-license-active: #10b981;
+  --background-license-expired: #ef4444;
+  --background-license-item: #1565c0;
+  --background-license-value: #ffffff;
+  --border-color: #e2e8f0;
+  --success-color: #10b981;
+  --warning-color: #f59e0b;
+  --error-color: #ef4444;
+  --info-color: #3b82f6;
+  --success-hover: #059669;
+  --error-hover: #dc2626;
+
+  /* Status colors (monitoring) */
+  --status-online: #4caf50;
+  --status-online-dark: #2e7d32;
+  --status-online-light: #e8f5e9;
+  --status-offline: #f44336;
+  --status-offline-dark: #c62828;
+  --status-offline-light: #ffebee;
+  --status-warning: #ff9800;
+  --status-unknown: #9e9e9e;
+  --status-info: #1976d2;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 暗色主题变量覆盖 */
+.dark-theme {
+  --primary-color: #818cf8;
+  --primary-hover: #93c5fd;
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --background: #1e293b;
+  --background-primary: #1e293b;
+  --background-secondary: #0f172a;
+  --background-paper: #334155;
+  --background-card: #475569;
+  --background-highlight: #1e293b;
+  --background-success-light: #0f172a;
+  --background-error-light: #0f172a;
+  --background-warning-light: #0f172a;
+  --background-info-light: #0f172a;
+  --background-table-header: #334155;
+  --background-license-active: #34d399;
+  --background-license-expired: #f87171;
+  --background-license-item: #60a5fa;
+  --background-license-value: #1e293b;
+  --border-color: #475569;
+  --success-color: #34d399;
+  --warning-color: #fbbf24;
+  --error-color: #f87171;
+  --info-color: #60a5fa;
+  --success-hover: #2dd4bf;
+  --error-hover: #fb7185;
+
+  /* Status colors (monitoring) */
+  --status-online: #66bb6a;
+  --status-online-dark: #43a047;
+  --status-online-light: #1b3d1e;
+  --status-offline: #ef5350;
+  --status-offline-dark: #e53935;
+  --status-offline-light: #3d1b1b;
+  --status-warning: #ffa726;
+  --status-unknown: #bdbdbd;
+  --status-info: #42a5f5;
+}
+
+/* 暗色主题 MUI 组件覆盖 */
+.dark-theme .MuiPaper-root {
+  background-color: var(--background-paper);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+.dark-theme .MuiPaper-outlined {
+  border: 1px solid var(--border-color);
+}
+
+.dark-theme .MuiPaper-elevation1,
+.dark-theme .MuiPaper-elevation2,
+.dark-theme .MuiPaper-elevation3 {
+  border: 1px solid var(--border-color);
+}
+
+.dark-theme .MuiTableContainer-root {
+  background-color: var(--background-paper);
+  border-color: var(--border-color);
+}
+
+.dark-theme .MuiCard-root {
+  border: 1px solid var(--border-color);
+}
+
+.dark-theme .MuiTableCell-root {
+  color: var(--text-primary);
+  border-bottom-color: var(--border-color);
+}
+
+.dark-theme .MuiTableCell-head {
+  background-color: var(--background-secondary);
+  color: var(--text-primary);
+}
+
+.dark-theme .MuiAccordion-root {
+  background-color: var(--background-paper);
+  border-color: var(--border-color);
+}
+
+.dark-theme .MuiAlert-standardInfo {
+  background-color: var(--background-info-light);
+  color: var(--text-primary);
+}
+
+.dark-theme .MuiInputBase-root {
+  color: var(--text-primary);
+}
+
+.dark-theme .MuiOutlinedInput-notchedOutline,
+.dark-theme .MuiPickersOutlinedInput-notchedOutline {
+  border-color: var(--border-color);
+}
+
+.dark-theme .MuiInputLabel-root {
+  color: var(--text-secondary);
+}
+
+.dark-theme .MuiSelect-select {
+  color: var(--text-primary);
+}
+
+.dark-theme .MuiChip-filled {
+  background-color: var(--background-card);
+  color: var(--text-primary);
+}
+
+.dark-theme .MuiChip-colorPrimary {
+  background-color: var(--primary-color);
+  color: #ffffff;
+}
+
+.dark-theme .MuiChip-colorSuccess {
+  background-color: var(--success-color);
+  color: #ffffff;
+}
+
+.dark-theme .MuiTab-root {
+  color: var(--text-secondary);
+  opacity: 0.85;
+}
+
+.dark-theme .MuiTab-root.Mui-selected {
+  color: var(--primary-color);
+  opacity: 1;
+}
+
+.dark-theme .MuiTabs-indicator {
+  background-color: var(--primary-color);
+}
+
+/* 全局样式 */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: var(--background-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* 应用容器 */
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* 链接样式 */
+a {
+  font-weight: 500;
+  color: var(--primary-color);
+  text-decoration: inherit;
+  transition: color 0.25s ease;
+}
+
+a:hover {
+  color: var(--primary-hover);
+}
+
+/* 标题样式 */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-primary);
+  margin-top: 0;
+}
+
+h1 {
+  font-size: 2.5em;
+  line-height: 1.1;
+}
+
+/* 按钮样式 - 仅应用于非 MUI 按钮 */
+button:not(.MuiButtonBase-root):not(.MuiTab-root):not(.MuiIconButton-root) {
+  border-radius: 6px;
+  border: 1px solid transparent;
+  padding: 0.5em 1em;
+  font-size: 0.9em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: var(--primary-color);
+  color: white;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+button:not(.MuiButtonBase-root):not(.MuiTab-root):not(.MuiIconButton-root):hover {
+  background-color: var(--primary-hover);
+  border-color: var(--primary-hover);
+}
+
+button:not(.MuiButtonBase-root):not(.MuiTab-root):not(.MuiIconButton-root):focus,
+button:not(.MuiButtonBase-root):not(.MuiTab-root):not(.MuiIconButton-root):focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* 表单元素 */
+input, select, textarea {
+  background-color: var(--background-paper);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 0.5em;
+  transition: border-color 0.25s ease, background-color 0.25s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+/* 卡片样式 */
+.card {
+  background-color: var(--background-paper);
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  padding: 1.5em;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* 滚动条样式 */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-secondary);
+}
+
+/* Global keyframes for status animations */
+@keyframes onlinePulse {
+  0%, 100% { box-shadow: 0 0 2px rgba(76,175,80,0.3); opacity: 1; }
+  50% { box-shadow: 0 0 12px 3px rgba(76,175,80,0.7); opacity: 0.85; }
+}
+
+@keyframes offlinePulse {
+  0%, 100% { box-shadow: 0 0 4px rgba(244,67,54,0.4); opacity: 1; transform: scale(1); }
+  50% { box-shadow: 0 0 16px 5px rgba(244,67,54,0.85); opacity: 0.7; transform: scale(1.05); }
+}
+
+@keyframes breathe {
+  0%, 100% { box-shadow: 0 0 4px rgba(102,187,106,0.4); transform: scale(1); }
+  50% { box-shadow: 0 0 10px rgba(102,187,106,0.8); transform: scale(1.2); }
+}
+
+@keyframes breatheOffline {
+  0%, 100% { box-shadow: 0 0 4px rgba(239,83,80,0.5); transform: scale(1); }
+  50% { box-shadow: 0 0 12px rgba(239,83,80,0.95); transform: scale(1.4); }
+}
+
+@keyframes flowLight {
+  0% { left: -40%; }
+  100% { left: 100%; }
+}
+
+@keyframes chipPulse {
+  0%, 100% { box-shadow: 0 0 2px rgba(76,175,80,0.3); opacity: 1; }
+  50% { box-shadow: 0 0 12px 3px rgba(76,175,80,0.7); opacity: 0.85; }
+}
+
+@keyframes chipPulseOffline {
+  0%, 100% { box-shadow: 0 0 4px rgba(198,40,40,0.4); opacity: 1; }
+  50% { box-shadow: 0 0 16px 5px rgba(198,40,40,0.9); opacity: 0.7; }
+}

@@ -1,0 +1,42 @@
+[
+  {
+    "id": "ps_1779079833251_9zmtdm",
+    "name": "App server",
+    "ip": "192.168.2.1",
+    "enabled": true,
+    "createdAt": "2026-05-18T04:50:33.251Z",
+    "hostname": "PrintServer1",
+    "username": "admin",
+    "password": "REDACTED"
+  },
+  {
+    "id": "ps_1779079871186_tnincw",
+    "name": "Shanghai Site",
+    "ip": "192.168.2.2",
+    "enabled": true,
+    "createdAt": "2026-05-18T04:51:11.186Z",
+    "hostname": "PrintServer2",
+    "username": "admin",
+    "password": "REDACTED"
+  },
+  {
+    "id": "ps_1779079886844_qy3rnf",
+    "name": "Beijing Site",
+    "ip": "192.168.2.3",
+    "enabled": true,
+    "createdAt": "2026-05-18T04:51:26.844Z",
+    "hostname": "PrintServer3",
+    "username": "admin",
+    "password": "REDACTED"
+  },
+  {
+    "id": "ps_1779079927343_h4839u",
+    "name": "Backup App Server",
+    "ip": "192.168.2.4",
+    "enabled": false,
+    "createdAt": "2026-05-18T04:52:07.343Z",
+    "hostname": "PrintServer4",
+    "username": "admin",
+    "password": "REDACTED"
+  }
+]

@@ -1,0 +1,64 @@
+{
+  "configMeta": {
+    "schemaVersion": 1,
+    "revision": 9,
+    "updatedAt": "2026-06-30T03:12:45.845Z",
+    "updatedBy": "admin"
+  },
+  "email": {
+    "smtpServer": "10.0.100.1",
+    "smtpPort": "25",
+    "smtpUser": "",
+    "smtpPass": "",
+    "useTls": false,
+    "defaultFrom": "operator@example.com",
+    "defaultTo": "operator@example.com"
+  },
+  "papercut": {
+    "enabled": false,
+    "serverUrl": "",
+    "apiKey": "",
+    "host": "10.0.100.2",
+    "port": "9191",
+    "username": "admin",
+    "password": "PASSWORD_REDACTED",
+    "apiToken": ""
+  },
+  "license": {
+    "expirationDate": "2030-09-30"
+  },
+  "monitoring": {
+    "printers": {
+      "intervalMs": 30000,
+      "backoffEnabled": false,
+      "backoffMultiplier": 1.5,
+      "maxIntervalMs": 120000
+    },
+    "printServers": {
+      "intervalMs": 30000,
+      "backoffEnabled": false,
+      "backoffMultiplier": 1.5,
+      "maxIntervalMs": 120000
+    }
+  },
+  "emailContacts": {
+    "senders": [],
+    "recipients": [],
+    "ccRecipients": []
+  },
+  "forgotPasswordEmail": "admin@example.com",
+  "reportSettings": {
+    "emails": {
+      "fromEmail": "123@123.com",
+      "toEmail": "234@123.com",
+      "ccEmail": "345@123.com"
+    },
+    "weeklySchedule": {
+      "enabled": false
+    },
+    "lastSentWeek": "2026-W23",
+    "sendingWeek": "",
+    "sendingStartedAt": "",
+    "lastSentAt": "2026-06-05T09:40:24.898Z"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "email": {
+    "smtpHost": "10.0.100.1",
+    "smtpPort": "25",
+    "smtpUser": "",
+    "smtpPass": "",
+    "useTls": false
+  },
+  "papercut": {
+    "enabled": false,
+    "host": "10.0.100.2",
+    "port": "9191",
+    "username": "admin",
+    "password": "PASSWORD_REDACTED",
+    "apiToken": "YOUR_API_TOKEN_HERE"
+  },
+  "application": {
+    "reportFrequency": "weekly",
+    "sendReminders": true,
+    "reminderDays": 3
+  },
+  "license": {
+    "expirationDate": "2025-09-30"
+  }
+}

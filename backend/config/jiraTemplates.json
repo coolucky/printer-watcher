@@ -1,0 +1,388 @@
+[
+  {
+    "id": "avvc-daily",
+    "category": "daily",
+    "name": "AV/VC 每日巡检（Beijing）",
+    "componentId": "12492",
+    "summaryTemplate": "Daily meeting room inspection -{DATE_COMPACT}",
+    "descriptionTemplate": "Beijing Site AV/VC service Daily inspection",
+    "inputs": [],
+    "extraFields": null,
+    "internalComponentCategory": "AV/VC Operation",
+    "internalComponentSubCategory": "Onsite inspection",
+    "internalComponentCategoryId": "13611",
+    "internalComponentSubCategoryId": "13612",
+    "internalComponentFieldId": "customfield_12724"
+  },
+  {
+    "id": "avvc-meeting",
+    "category": "daily",
+    "name": "AV/VC 会议保障",
+    "componentId": "12493",
+    "summaryTemplate": "{meeting_name} support -{DATE_COMPACT}",
+    "descriptionTemplate": "{meeting_name} support\n\nTime: {time}\nLocation: {location}",
+    "inputs": [
+      {
+        "key": "meeting_name",
+        "label": "会议名称（如 All Hands / GWS All Hands）"
+      },
+      {
+        "key": "time",
+        "label": "会议时间（如 10:00-11:00）"
+      },
+      {
+        "key": "location",
+        "label": "地点（如 Beijing Office / Online）"
+      }
+    ],
+    "extraFields": null,
+    "internalComponentCategory": "AV/VC Support",
+    "internalComponentSubCategory": "Event support （Online & Offline)",
+    "internalComponentCategoryId": "13617",
+    "internalComponentSubCategoryId": "13620",
+    "internalComponentFieldId": "customfield_12724"
+  },
+  {
+    "id": "printer-toner",
+    "category": "daily",
+    "name": "Printer 墨粉检查",
+    "componentId": "12496",
+    "summaryTemplate": "Check the remaining amount of toner in the printer on the {floor} floor in Beijing Office",
+    "descriptionTemplate": "Check the remaining amount of toner in the printer on the {floor} floor in Beijing Office",
+    "inputs": [
+      {
+        "key": "floor",
+        "label": "楼层（如 12A / 12B / 26A）"
+      }
+    ],
+    "extraFields": null,
+    "internalComponentCategory": "Printer",
+    "internalComponentSubCategory": "Printer toner check",
+    "internalComponentCategoryId": "13642",
+    "internalComponentSubCategoryId": "13649",
+    "internalComponentFieldId": ""
+  },
+  {
+    "id": "printer-weekly",
+    "category": "weekly",
+    "name": "Printer 状态周报",
+    "componentId": "12496",
+    "summaryTemplate": "Print service status weekly report -{DATE_REPORT}",
+    "descriptionTemplate": "Print service status weekly report",
+    "inputs": [],
+    "extraFields": null,
+    "internalComponentCategory": "Printer",
+    "internalComponentSubCategory": "Printer health check",
+    "internalComponentCategoryId": "13642",
+    "internalComponentSubCategoryId": "13648",
+    "internalComponentFieldId": "customfield_12724"
+  },
+  {
+    "id": "printer-counter",
+    "category": "weekly",
+    "name": "Printer 计数确认",
+    "componentId": "12496",
+    "summaryTemplate": "Printer counter confirmation",
+    "descriptionTemplate": "Printer counter confirmation",
+    "inputs": [],
+    "extraFields": null,
+    "internalComponentCategory": "Printer",
+    "internalComponentSubCategory": "Printer toner check",
+    "internalComponentCategoryId": "13642",
+    "internalComponentSubCategoryId": "13649",
+    "internalComponentFieldId": "customfield_12724"
+  },
+  {
+    "id": "sccm-compliance",
+    "category": "weekly",
+    "name": "SCCM 合规跟进",
+    "componentId": "12499",
+    "summaryTemplate": "Follow up Non-compliance devices list in SCCM on {DATE_SLASH}",
+    "descriptionTemplate": "follow up Non-compliance devices list in SCCM",
+    "inputs": [],
+    "extraFields": null,
+    "internalComponentCategory": "MDM",
+    "internalComponentSubCategory": "Security baseline compliance",
+    "internalComponentCategoryId": "13699",
+    "internalComponentSubCategoryId": "13847",
+    "internalComponentFieldId": "customfield_12724"
+  },
+  {
+    "id": "mdm-compliance",
+    "category": "weekly",
+    "name": "MDM Laptop 合规检查",
+    "componentId": "12504",
+    "summaryTemplate": "Laptop compliance checking",
+    "descriptionTemplate": "Laptop compliance checking\n\n|MDM|hostname|SN|state|email|username|LM|equipment_type|operating_system|",
+    "inputs": [],
+    "extraFields": null,
+    "internalComponentCategory": "MDM",
+    "internalComponentSubCategory": "Security baseline compliance",
+    "internalComponentCategoryId": "13699",
+    "internalComponentSubCategoryId": "13847",
+    "internalComponentFieldId": "customfield_12724"
+  },
+  {
+    "id": "mdm-lockdown",
+    "category": "weekly",
+    "name": "MDM 锁定长期不活跃设备",
+    "componentId": "12504",
+    "summaryTemplate": "lockdown the laptops no-active over 45 days",
+    "descriptionTemplate": "lockdown the laptops no-active over 45 days\n\n|hostname|SN|email|username|LM|LastcheckIn|days|model|",
+    "inputs": [],
+    "extraFields": null,
+    "internalComponentCategory": "MDM",
+    "internalComponentSubCategory": "Security baseline compliance",
+    "internalComponentCategoryId": "13699",
+    "internalComponentSubCategoryId": "13847",
+    "internalComponentFieldId": "customfield_12724"
+  },
+  {
+    "id": "asset-disposal",
+    "category": "monthly",
+    "name": "资产处置（月度）",
+    "componentId": "12501",
+    "summaryTemplate": "Asset disposal - user collection in {MONTH_COMPACT}",
+    "descriptionTemplate": "Asset disposal for user collection in {MONTH_COMPACT}",
+    "inputs": [],
+    "extraFields": null,
+    "internalComponentCategory": "Asset",
+    "internalComponentSubCategory": "Asset Disposal",
+    "internalComponentCategoryId": "13696",
+    "internalComponentSubCategoryId": "13710",
+    "internalComponentFieldId": "customfield_12724"
+  },
+  {
+    "id": "citrix-snapshot",
+    "category": "monthly",
+    "name": "Citrix 快照",
+    "componentId": "12497",
+    "summaryTemplate": "take snapshots for Citrix Base image servers",
+    "descriptionTemplate": "take snapshots for Citrix Base image servers",
+    "inputs": [],
+    "extraFields": null,
+    "internalComponentCategory": "Citrix",
+    "internalComponentSubCategory": "Citrix Server Patching",
+    "internalComponentCategoryId": "13652",
+    "internalComponentSubCategoryId": "13654",
+    "internalComponentFieldId": "customfield_12724"
+  },
+  {
+    "id": "windows-patch",
+    "category": "monthly",
+    "name": "Windows Patch 部署",
+    "componentId": "12503",
+    "summaryTemplate": "Deployed {MONTH_EN} Windows patches for Pilots servers",
+    "descriptionTemplate": "Deployed {MONTH_EN} Windows patches for Pilots servers",
+    "inputs": [],
+    "extraFields": null,
+    "internalComponentCategory": "Server Hosting",
+    "internalComponentSubCategory": "Windows server patching",
+    "internalComponentCategoryId": "13698",
+    "internalComponentSubCategoryId": "13720",
+    "internalComponentFieldId": ""
+  },
+  {
+    "id": "offboarding",
+    "category": "support",
+    "name": "Offboarding（设备回收）",
+    "componentId": "12507",
+    "summaryTemplate": "Offboarding- return user's devices {fullname}",
+    "descriptionTemplate": "Offboarding- return user's devices {fullname}\n\n{ntid}",
+    "inputs": [
+      {
+        "key": "fullname",
+        "label": "用户全名（英文，如 Chenghao Hu）"
+      },
+      {
+        "key": "ntid",
+        "label": "用户 NTID（Jira 用户名）"
+      }
+    ],
+    "extraFields": null,
+    "internalComponentCategory": "On/Off Boarding",
+    "internalComponentSubCategory": "Return Devices (legal hold)",
+    "internalComponentCategoryId": "13702",
+    "internalComponentSubCategoryId": "13753",
+    "internalComponentFieldId": "customfield_12724"
+  },
+  {
+    "id": "f9e7f649-a2a9-4160-96cc-05b1ed4dc023",
+    "category": "support",
+    "name": "解绑PingID",
+    "componentId": "12499",
+    "summaryTemplate": "user need to unpair PingID of the gopaycorp account",
+    "descriptionTemplate": "user need to unpair PingID of the gopaycorp account\n{ntid}",
+    "inputs": [
+      {
+        "key": "ntid",
+        "label": "用户 NTID"
+      }
+    ],
+    "extraFields": null,
+    "internalComponentCategory": "Desktop/Laptop Request & Issue",
+    "internalComponentSubCategory": "Two Factor Authentication",
+    "internalComponentCategoryId": "13671",
+    "internalComponentSubCategoryId": "13684",
+    "internalComponentFieldId": "customfield_12724"
+  },
+  {
+    "id": "5e9b557c-1812-4b4e-990f-01e64f772cc9",
+    "category": "support",
+    "name": "鼠标异常",
+    "componentId": "12499",
+    "summaryTemplate": "user cannot use the mouse at the workstation",
+    "descriptionTemplate": "user cannot use the mouse at the workstation\n\n{ntid}",
+    "inputs": [
+      {
+        "key": "ntid",
+        "label": "用户 NTID（Jira 用户名）"
+      }
+    ],
+    "extraFields": null,
+    "internalComponentCategory": "Desktop/Laptop Request & Issue",
+    "internalComponentSubCategory": "Other",
+    "internalComponentCategoryId": "13671",
+    "internalComponentSubCategoryId": "13688",
+    "internalComponentFieldId": ""
+  },
+  {
+    "id": "ed17c253-0216-442c-aee2-903bb1fdeea0",
+    "category": "support",
+    "name": "显示器异常",
+    "componentId": "12499",
+    "summaryTemplate": "user cannot use the monitor at the workstation",
+    "descriptionTemplate": "user cannot use the monitor at the workstation\n\n{ntid}",
+    "inputs": [
+      {
+        "key": "ntid",
+        "label": "用户 NTID（Jira 用户名）"
+      }
+    ],
+    "extraFields": null,
+    "internalComponentCategory": "Desktop/Laptop Request & Issue",
+    "internalComponentSubCategory": "Other",
+    "internalComponentCategoryId": "13671",
+    "internalComponentSubCategoryId": "13688",
+    "internalComponentFieldId": ""
+  },
+  {
+    "id": "eacd753d-d160-4474-922a-5802cb92cb95",
+    "category": "support",
+    "name": "键盘异常",
+    "componentId": "12499",
+    "summaryTemplate": "user cannot use the keyboard at the workstation",
+    "descriptionTemplate": "user cannot use the keyboard at the workstation\n\n{ntid}",
+    "inputs": [
+      {
+        "key": "ntid",
+        "label": "用户 NTID（Jira 用户名）"
+      }
+    ],
+    "extraFields": null,
+    "internalComponentCategory": "Desktop/Laptop Request & Issue",
+    "internalComponentSubCategory": "Other",
+    "internalComponentCategoryId": "13671",
+    "internalComponentSubCategoryId": "13688",
+    "internalComponentFieldId": ""
+  },
+  {
+    "id": "88090a1a-48e8-462f-9dd9-caf584c25a31",
+    "category": "daily",
+    "name": "AV/VC 每日巡检（Shanghai）",
+    "componentId": "12492",
+    "summaryTemplate": "Daily meeting room inspection -{DATE_COMPACT}",
+    "descriptionTemplate": "Shanghai Site AV/VC service Daily inspection",
+    "inputs": [],
+    "extraFields": null,
+    "internalComponentCategory": "AV/VC Operation",
+    "internalComponentSubCategory": "Onsite inspection",
+    "internalComponentCategoryId": "13611",
+    "internalComponentSubCategoryId": "13612",
+    "internalComponentFieldId": "customfield_12724"
+  },
+  {
+    "id": "96b658d8-80d2-413e-a897-7b6162554fe7",
+    "category": "support",
+    "name": "解锁设备",
+    "componentId": "12499",
+    "summaryTemplate": "unfreeze user's laptop on Absolute",
+    "descriptionTemplate": "unfreeze user's laptop on Absolute\n\n{ntid}",
+    "inputs": [
+      {
+        "key": "ntid",
+        "label": "用户 NTID（Jira 用户名）"
+      }
+    ],
+    "extraFields": null,
+    "internalComponentCategory": "Desktop/Laptop Request & Issue",
+    "internalComponentSubCategory": "PC lockdown",
+    "internalComponentCategoryId": "13671",
+    "internalComponentSubCategoryId": "13686",
+    "internalComponentFieldId": "customfield_12724"
+  },
+  {
+    "id": "6d44f5f4-c0af-4dbf-a555-ee1e70bb4009",
+    "category": "weekly",
+    "name": "Printer无法使用",
+    "componentId": "12496",
+    "summaryTemplate": "user can not use printer in the office",
+    "descriptionTemplate": "user can not use printer in the office\n{ntid}",
+    "inputs": [
+      {
+        "key": "ntid",
+        "label": "用户 NTID（Jira 用户名）"
+      }
+    ],
+    "extraFields": null,
+    "internalComponentCategory": "Printer",
+    "internalComponentSubCategory": "User printing issue",
+    "internalComponentCategoryId": "13642",
+    "internalComponentSubCategoryId": "13644",
+    "internalComponentFieldId": "customfield_12724"
+  },
+  {
+    "id": "e56fa5b6-d57c-449f-a2b6-83842382f54b",
+    "category": "support",
+    "name": "Teams异常",
+    "componentId": "12502",
+    "summaryTemplate": "user can not login Teams on PPCN laptop",
+    "descriptionTemplate": "user can not login Teams on PPCN laptop\n\n{ntid}",
+    "inputs": [
+      {
+        "key": "ntid",
+        "label": "用户 NTID（Jira 用户名）"
+      }
+    ],
+    "extraFields": null,
+    "internalComponentCategory": "Messaging & Collaboration",
+    "internalComponentSubCategory": "Teams",
+    "internalComponentCategoryId": "13697",
+    "internalComponentSubCategoryId": "13713",
+    "internalComponentFieldId": "customfield_12724"
+  },
+  {
+    "id": "50d6d7db-f784-48e3-8077-e06d5078d6a6",
+    "category": "support",
+    "name": "Offboarding（终止账号）",
+    "componentId": "12507",
+    "summaryTemplate": "Offboarding- terminate user's PPCN account {fullname}",
+    "descriptionTemplate": "Offboarding- terminate user's PPCN account {fullname}\n\n{ntid}",
+    "inputs": [
+      {
+        "key": "fullname",
+        "label": "用户全名（英文，如 Chenghao Hu）"
+      },
+      {
+        "key": "ntid",
+        "label": "用户 NTID（Jira 用户名）"
+      }
+    ],
+    "extraFields": null,
+    "internalComponentCategory": "On/Off Boarding",
+    "internalComponentSubCategory": "Terminate user PPCN account",
+    "internalComponentCategoryId": "13702",
+    "internalComponentSubCategoryId": "13755",
+    "internalComponentFieldId": "customfield_12724"
+  }
+]

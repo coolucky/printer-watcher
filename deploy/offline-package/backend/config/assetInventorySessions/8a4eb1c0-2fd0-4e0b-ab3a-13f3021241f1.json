@@ -1,0 +1,18 @@
+{
+  "currentStep": 0,
+  "inventoryMode": null,
+  "inventoryPerson": "📋 Beijing Inventory Task 6/10/2026",
+  "inventoryPersonList": [
+    "📋 Beijing Inventory Task 6/10/2026"
+  ],
+  "currentInventoryPerson": "📋 Beijing Inventory Task 6/10/2026",
+  "baselineData": [],
+  "scannedAssets": [],
+  "notFoundAssets": [],
+  "locationMismatches": [],
+  "scanHistory": [],
+  "inventoryStartTime": null,
+  "inventoryEndTime": null,
+  "inUseLocationPresetEnabled": false,
+  "selectedPresetLocation": null
+}

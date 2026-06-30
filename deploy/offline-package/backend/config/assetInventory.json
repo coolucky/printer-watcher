@@ -1,0 +1,16 @@
+{
+  "currentStep": 0,
+  "inventoryMode": null,
+  "inventoryPerson": "",
+  "inventoryPersonList": [],
+  "currentInventoryPerson": "",
+  "baselineData": [],
+  "scannedAssets": [],
+  "notFoundAssets": [],
+  "locationMismatches": [],
+  "scanHistory": [],
+  "inventoryStartTime": null,
+  "inventoryEndTime": null,
+  "inUseLocationPresetEnabled": false,
+  "selectedPresetLocation": null
+}

@@ -1,0 +1,9 @@
+{
+  "admin-001": {
+    "jiraUrl": "https://jira.example.com",
+    "jiraPat": "YOUR_JIRA_PAT_HERE",
+    "serviceDeskId": "107",
+    "requestTypeId": "958",
+    "updatedAt": "2026-06-15T15:12:11.204Z"
+  }
+}

@@ -1,0 +1,44 @@
+[
+  {
+    "id": "7f93a7c0-daaa-4429-af2b-8ea9316271a3",
+    "text": "Reset and sent it to user.",
+    "createdBy": "admin",
+    "createdAt": "2026-06-23T02:56:33.320Z"
+  },
+  {
+    "id": "bc61b843-f295-4497-8162-a3442278f789",
+    "text": "This issue has been resolved.",
+    "createdBy": "admin",
+    "createdAt": "2026-06-23T02:57:05.772Z"
+  },
+  {
+    "id": "42fe4ada-e942-4294-beb7-1ad6269bec2f",
+    "text": "Approval time change.",
+    "createdBy": "admin",
+    "createdAt": "2026-06-23T02:57:42.772Z"
+  },
+  {
+    "id": "4806156e-d590-415c-9a6b-b694251f9f23",
+    "text": "Unlocked.",
+    "createdBy": "admin",
+    "createdAt": "2026-06-23T02:58:07.375Z"
+  },
+  {
+    "id": "dbbfeeab-9b9f-486e-bf20-0c213b64f721",
+    "text": "Unpaired.",
+    "createdBy": "admin",
+    "createdAt": "2026-06-23T02:58:14.171Z"
+  },
+  {
+    "id": "96265ca2-33b1-4191-b8c3-07d28c5beba3",
+    "text": "Unfreezed.",
+    "createdBy": "admin",
+    "createdAt": "2026-06-23T02:58:21.501Z"
+  },
+  {
+    "id": "7e45ce49-9856-4df7-ae4e-d058f464044e",
+    "text": "Terminated.",
+    "createdBy": "admin",
+    "createdAt": "2026-06-23T08:18:41.607Z"
+  }
+]

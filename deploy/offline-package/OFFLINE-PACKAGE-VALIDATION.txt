@@ -1,0 +1,32 @@
+Printer Status Report Offline Package Validation
+Generated at: 2026-06-23 16:27:06
+Package: /Users/jianyao/Documents/VS Code/printer-status-report/deploy/offline-package
+
+[PASS] Dir exists: /Users/jianyao/Documents/VS Code/printer-status-report/deploy/offline-package
+[PASS] Dir exists: /Users/jianyao/Documents/VS Code/printer-status-report/deploy/offline-package/dist
+[PASS] File exists: /Users/jianyao/Documents/VS Code/printer-status-report/deploy/offline-package/dist/index.html
+[PASS] Dir exists: /Users/jianyao/Documents/VS Code/printer-status-report/deploy/offline-package/dist/asset-inventory
+[PASS] File exists: /Users/jianyao/Documents/VS Code/printer-status-report/deploy/offline-package/dist/asset-inventory/scripts/lib/exceljs.min.js
+[PASS] Dir exists: /Users/jianyao/Documents/VS Code/printer-status-report/deploy/offline-package/backend
+[PASS] File exists: /Users/jianyao/Documents/VS Code/printer-status-report/deploy/offline-package/backend/server.js
+[PASS] Dir exists: /Users/jianyao/Documents/VS Code/printer-status-report/deploy/offline-package/backend/node_modules
+[PASS] File exists: /Users/jianyao/Documents/VS Code/printer-status-report/deploy/offline-package/frontend-server.js
+[PASS] File exists: /Users/jianyao/Documents/VS Code/printer-status-report/deploy/offline-package/install-service.bat
+[PASS] File exists: /Users/jianyao/Documents/VS Code/printer-status-report/deploy/offline-package/start-service.bat
+[PASS] File exists: /Users/jianyao/Documents/VS Code/printer-status-report/deploy/offline-package/nssm.exe
+[PASS] File exists: /Users/jianyao/Documents/VS Code/printer-status-report/deploy/offline-package/DEPLOY-README.md
+[PASS] File exists: /Users/jianyao/Documents/VS Code/printer-status-report/deploy/offline-package/DESKTOP-SUPPORT-RUNBOOK.md
+[PASS] File exists: /Users/jianyao/Documents/VS Code/printer-status-report/deploy/offline-package/BACKUP-DRILL-RUNBOOK.md
+[PASS] Pattern '9191' found in /Users/jianyao/Documents/VS Code/printer-status-report/deploy/offline-package/frontend-server.js
+[PASS] Pattern '3001' found in /Users/jianyao/Documents/VS Code/printer-status-report/deploy/offline-package/frontend-server.js
+[PASS] Pattern 'SERVICE_AUTO_START' found in /Users/jianyao/Documents/VS Code/printer-status-report/deploy/offline-package/install-service.bat
+[PASS] Pattern 'ObjectName LocalSystem' found in /Users/jianyao/Documents/VS Code/printer-status-report/deploy/offline-package/install-service.bat
+[PASS] Pattern 'nssm.exe' found in /Users/jianyao/Documents/VS Code/printer-status-report/deploy/offline-package/install-service.bat
+[PASS] install-service.bat NSSM persistence config verified (SERVICE_AUTO_START + LocalSystem)
+[PASS] File exists: /Users/jianyao/Documents/VS Code/printer-status-report/deploy/offline-package/uninstall-service.bat
+[PASS] Pattern 'taskkill /F /IM nssm.exe' found in /Users/jianyao/Documents/VS Code/printer-status-report/deploy/offline-package/uninstall-service.bat
+[PASS] uninstall-service.bat has taskkill for nssm.exe (prevents file lock issue)
+[PASS] File exists: /Users/jianyao/Documents/VS Code/printer-status-report/deploy/printer-status-report-offline-20260623.zip
+[PASS] Zip content checks passed
+
+Result: PASS

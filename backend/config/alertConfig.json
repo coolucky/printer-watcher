@@ -1,0 +1,12 @@
+{
+  "enabled": false,
+  "offlineAlertEnabled": false,
+  "tonerAlertEnabled": false,
+  "fromEmail": "123@123.com",
+  "toEmails": "",
+  "tonerThreshold": 5,
+  "dedupeWindowMinutes": 10,
+  "maxAlertsPerHour": 20,
+  "printerErrorAlertEnabled": false,
+  "serverAlertEnabled": false
+}

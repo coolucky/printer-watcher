@@ -1,0 +1,50 @@
+[
+  {
+    "name": "Beijing_12A",
+    "ip": "10.128.20.6",
+    "success": true,
+    "data": {
+      "black": 69,
+      "cyan": 0,
+      "magenta": 0,
+      "yellow": 0
+    },
+    "timeMs": 5160
+  },
+  {
+    "name": "Beijing_12B",
+    "ip": "10.128.21.6",
+    "success": true,
+    "data": {
+      "black": 47,
+      "cyan": 0,
+      "magenta": 0,
+      "yellow": 0
+    },
+    "timeMs": 5229
+  },
+  {
+    "name": "Shanghai_26A",
+    "ip": "10.132.20.6",
+    "success": true,
+    "data": {
+      "black": 51,
+      "cyan": 0,
+      "magenta": 0,
+      "yellow": 0
+    },
+    "timeMs": 5506
+  },
+  {
+    "name": "Shenzhen_18F",
+    "ip": "10.136.9.6",
+    "success": true,
+    "data": {
+      "black": 58,
+      "cyan": 0,
+      "magenta": 0,
+      "yellow": 0
+    },
+    "timeMs": 5636
+  }
+]

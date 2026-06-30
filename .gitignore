@@ -1,0 +1,58 @@
+﻿# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Environment variables
+.env
+backend/.env
+
+# Runtime-generated monitoring artifacts
+backend/config/printServerHistory.json
+backend/config/printServerLogs.json
+backend/config/printerStatusLogs.json
+backend/config/assetInventorySessions/*
+
+
+# JWT secrets
+backend/config/.jwt-secret
+backend/config/.jwt-refresh-secret
+deploy/offline-package/backend/config/.jwt-secret
+deploy/offline-package/backend/config/.jwt-refresh-secret
+
+# Desensitization script (not for distribution)
+desensitize.cjs
+fix.cjs
+
+
+deploy/offline-package/backend/config/.jwt-secret
+deploy/offline-package/backend/config/.jwt-refresh-secret
+deploy/offline-package/backend/config/printServerHistory.json
+deploy/offline-package/backend/config/printServerLogs.json
+deploy/offline-package/backend/config/printerStatusLogs.json
+
+# Snapshots and temp artifacts
+snapshots/
+backend/temp/
+backend/routes/index.js.backup
+backend/test-results.json

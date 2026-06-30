@@ -1,0 +1,68 @@
+{
+  "records": [
+    {
+      "id": 1710537600000,
+      "timestamp": "2024-03-15T12:00:00.000Z",
+      "description": "Printer configuration backup",
+      "data": [
+        {
+          "id": "1",
+          "name": "Beijing_12A",
+          "ip": "192.168.1.101",
+          "serialNumber": "SN-BJ-001",
+          "port": 9100,
+          "location": "Beijing Office - Floor 12",
+          "model": "HP LaserJet Pro M404dn",
+          "manualTonerLevels": {
+            "black": 85,
+            "cyan": 70,
+            "magenta": 60,
+            "yellow": 90
+          },
+          "lastUpdated": "2024-03-15T12:00:00.000Z"
+        },
+        {
+          "id": "2",
+          "name": "Beijing_12B",
+          "ip": "192.168.1.104",
+          "serialNumber": "SN-BJ-002",
+          "port": 9100,
+          "location": "Beijing Office - Floor 12",
+          "model": "Canon imageCLASS MF426dw",
+          "manualTonerLevels": {
+            "black": 55,
+            "cyan": 40,
+            "magenta": 35,
+            "yellow": 75
+          },
+          "lastUpdated": "2024-03-15T12:00:00.000Z"
+        }
+      ]
+    },
+    {
+      "id": 1710534000000,
+      "timestamp": "2024-03-15T11:00:00.000Z",
+      "description": "After adding new printer",
+      "data": [
+        {
+          "id": "1",
+          "name": "Beijing_12A",
+          "ip": "192.168.1.101",
+          "serialNumber": "SN-BJ-001",
+          "port": 9100,
+          "location": "Beijing Office - Floor 12",
+          "model": "HP LaserJet Pro M404dn",
+          "manualTonerLevels": {
+            "black": 75,
+            "cyan": 60,
+            "magenta": 50,
+            "yellow": 80
+          },
+          "lastUpdated": "2024-03-15T11:00:00.000Z"
+        }
+      ]
+    }
+  ],
+  "lastUpdated": "2024-03-15T10:00:00.000Z",
+  "version": "1.0"
+}

@@ -1,0 +1,55 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "bin": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "axios": "^1.11.0",
+    "bcryptjs": "^3.0.3",
+    "cheerio": "^1.1.2",
+    "cors": "^2.8.5",
+    "date-fns": "^4.2.1",
+    "dotenv": "^17.2.2",
+    "express": "^5.1.0",
+    "express-rate-limit": "^8.5.2",
+    "jsonwebtoken": "^9.0.3",
+    "multer": "^2.1.1",
+    "net-snmp": "^3.9.0",
+    "nodemailer": "^7.0.6",
+    "ping": "^0.4.4",
+    "puppeteer": "^22.0.0",
+    "tesseract.js": "^5.0.0",
+    "tough-cookie": "^6.0.0",
+    "uuid": "^14.0.0"
+  },
+  "pkg": {
+    "scripts": [
+      "server.js",
+      "routes/**/*.js",
+      "services/**/*.js",
+      "config/**/*.js"
+    ],
+    "assets": [
+      "../dist/**/*",
+      "chi_sim.traineddata",
+      "eng.traineddata",
+      ".env",
+      "../settings.json"
+    ],
+    "targets": [
+      "node18-win-x64"
+    ],
+    "outputPath": "../dist",
+    "ignore": [
+      "node:sqlite"
+    ]
+  }
+}

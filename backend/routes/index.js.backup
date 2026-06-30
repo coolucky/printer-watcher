@@ -1,0 +1,631 @@
+const express = require('express');
+const router = express.Router();
+const printerService = require('../services/printerService');
+const EmailServiceClass = require('../services/emailService');
+const { format, addDays, differenceInDays } = require('date-fns');
+const fs = require('fs');
+const path = require('path');
+const settingsService = require('../services/settingsService');
+const PRINTERS_FILE = path.join(__dirname, '../config/printers.json');
+
+// Import printer scraper router and functions
+const printerScraper = require('../printerScraper');
+// Use the printer scraper router for toner data endpoints
+router.use('/', printerScraper.router);
+
+// Ensure printer config file directory exists
+const printersDir = path.dirname(PRINTERS_FILE);
+if (!fs.existsSync(printersDir)) {
+  fs.mkdirSync(printersDir, { recursive: true });
+}
+
+// Load system settings from settings service
+let systemSettings = settingsService.getSettings();
+
+// Create email service with system settings
+let emailService;
+function createEmailService() {
+  // Ensure systemSettings is loaded before creating email service
+  if (systemSettings && systemSettings.email) {
+    // Convert system settings format to email service format
+    const emailConfig = {
+      host: systemSettings.email.smtpServer,
+      port: systemSettings.email.smtpPort,
+      secure: systemSettings.email.useTls,
+      user: systemSettings.email.smtpUser,
+      pass: systemSettings.email.smtpPass
+    };
+    return new EmailServiceClass(emailConfig);
+  }
+  return new EmailServiceClass(); // Fallback to default if settings not available
+}
+
+// Initialize email service with loaded settings
+emailService = createEmailService();
+console.log('Email service initialized with settings:', emailService);
+
+
+
+
+// Load printer configs from file
+let printerConfigs;
+if (fs.existsSync(PRINTERS_FILE)) {
+  try {
+    printerConfigs = JSON.parse(fs.readFileSync(PRINTERS_FILE, 'utf8'));
+  } catch (error) {
+    console.error('Error loading printers file:', error.message);
+    printerConfigs = [
+      { name: 'Beijing_12A', ip: '10.128.20.6' },
+      { name: 'Beijing_12B', ip: '10.128.21.6' },
+      { name: 'Shanghai_26A', ip: '10.132.20.6' },
+      { name: 'Shenzhen_18F', ip: '10.136.9.6' }
+    ];
+  }
+} else {
+  // Initialize with default printers when file doesn't exist
+  printerConfigs = [
+    { name: 'Beijing_12A', ip: '10.128.20.6' },
+    { name: 'Beijing_12B', ip: '10.128.21.6' },
+    { name: 'Shanghai_26A', ip: '10.132.20.6' },
+    { name: 'Shenzhen_18F', ip: '10.136.9.6' }
+  ];
+  try {
+    fs.writeFileSync(PRINTERS_FILE, JSON.stringify(printerConfigs, null, 2), 'utf8');
+  } catch (error) {
+      console.error('Error creating initial printers file:', error.message);
+    }
+  }
+
+  // Get all printer configurations
+  router.get('/printers', (req, res) => {
+    res.json(printerConfigs);
+  });
+
+  // Save all printers (bulk save endpoint)
+  router.post('/printers/save', (req, res) => {
+    try {
+      const { printers } = req.body;
+      
+      if (!Array.isArray(printers)) {
+        return res.status(400).json({ error: 'Printers must be an array' });
+      }
+      
+      console.log(`Received request to save ${printers.length} printers`);
+      
+      // Update printer configurations
+      printerConfigs = printers.map(printer => ({
+        id: printer.id || Date.now().toString(),
+        name: printer.name,
+        ip: printer.ip,
+        serialNumber: printer.serialNumber || '',
+        port: printer.port || '',
+        macAddress: printer.macAddress || '',
+        location: printer.location || '',
+        assetTag: printer.assetTag || '',
+        model: printer.model || '',
+        status: printer.status || 'unknown',
+        manualTonerLevels: printer.manualTonerLevels || {},
+        lastUpdated: new Date().toISOString()
+      }));
+      
+      // Write to file
+      fs.writeFileSync(PRINTERS_FILE, JSON.stringify(printerConfigs, null, 2), 'utf8');
+      
+      // Also update the frontend printers-data.json file for consistency
+      const frontendPrintersFile = path.join(__dirname, '../../printers-data.json');
+      fs.writeFileSync(frontendPrintersFile, JSON.stringify(printerConfigs, null, 2), 'utf8');
+      
+      console.log(`Successfully saved ${printerConfigs.length} printers to both backend and frontend files`);
+      res.json({ message: 'Printers saved successfully', count: printerConfigs.length });
+    } catch (error) {
+      console.error('Error saving printers:', error.message);
+      res.status(500).json({ error: 'Failed to save printers', details: error.message });
+    }
+  });
+
+  // Update printer status
+  router.post('/printers/:id/status', (req, res) => {
+    const printerId = req.params.id;
+    const { status } = req.body;
+    
+    const printer = printerConfigs.find(p => p.id === printerId);
+    if (!printer) {
+      return res.status(404).json({ error: 'Printer not found' });
+    }
+    
+    printer.status = status;
+    printer.lastUpdated = new Date().toISOString();
+    
+    try {
+      fs.writeFileSync(PRINTERS_FILE, JSON.stringify(printerConfigs, null, 2), 'utf8');
+      res.json(printer);
+    } catch (error) {
+      console.error('Error updating printer status:', error.message);
+      res.status(500).json({ error: 'Failed to update printer status' });
+    }
+  });
+
+  // Add printer configuration
+  router.post('/printers', (req, res) => {
+    const { name, ip } = req.body;
+    if (!name || !ip) {
+      return res.status(400).json({ error: 'Name and IP are required' });
+    }
+
+    // Check if exists
+    const existing = printerConfigs.find(p => p.ip === ip);
+    if (existing) {
+      return res.status(409).json({ error: 'Printer with this IP already exists' });
+    }
+
+    const newPrinter = {
+      id: Date.now().toString(),
+      name,
+      ip,
+      status: 'unknown',
+      lastUpdated: new Date().toISOString()
+    };
+
+    printerConfigs.push(newPrinter);
+
+    try {
+      fs.writeFileSync(PRINTERS_FILE, JSON.stringify(printerConfigs, null, 2), 'utf8');
+      res.status(201).json(newPrinter);
+    } catch (error) {
+      console.error('Error adding printer:', error.message);
+      res.status(500).json({ error: 'Failed to add printer' });
+    }
+  });
+
+  // Get printer status via SNMP
+  router.get('/printers/:ip/snmp', async (req, res) => {
+    const { ip } = req.params;
+    const { community = 'public' } = req.query;
+    
+    if (!ip) {
+      return res.status(400).json({ error: 'Printer IP is required' });
+    }
+    
+    try {
+      const status = await printerService.getPrinterStatusViaSnmp(ip, community);
+      res.json(status);
+    } catch (error) {
+      console.error('Error getting printer status via SNMP:', error.message);
+      res.status(500).json({ error: 'Failed to get printer status via SNMP', details: error.message });
+    }
+  });
+
+  // Update printer configuration
+  router.put('/printers/:id', (req, res) => {
+    const printerId = req.params.id;
+    console.log('Received update request for printer ID:', printerId);
+    console.log('Received data:', req.body);
+    const { name, ip, serialNumber, port, location, macAddress, assetTag, model, manualTonerLevels } = req.body;
+    console.log('Extracted fields:', { name, ip, serialNumber, port, location, macAddress, assetTag, model, manualTonerLevels });
+    if (!name || !ip) {
+      return res.status(400).json({ error: 'Name and IP are required' });
+    }
+
+    const printerIndex = printerConfigs.findIndex(p => p.id === printerId);
+    if (printerIndex === -1) {
+      return res.status(404).json({ error: 'Printer not found' });
+    }
+
+    // Check if IP is used by another printer
+    const ipExists = printerConfigs.some((p, index) => index !== printerIndex && p.ip === ip);
+    if (ipExists) {
+      return res.status(409).json({ error: 'Printer with this IP already exists' });
+    }
+
+    printerConfigs[printerIndex] = {
+      ...printerConfigs[printerIndex],
+      name,
+      ip,
+      serialNumber,
+      port,
+      location,
+      macAddress,
+      assetTag,
+      model,
+      manualTonerLevels,
+      lastUpdated: new Date().toISOString()
+    };
+
+    console.log('Updated printer config:', printerConfigs[printerIndex]);
+
+    try {
+      fs.writeFileSync(PRINTERS_FILE, JSON.stringify(printerConfigs, null, 2), 'utf8');
+      res.json(printerConfigs[printerIndex]);
+    } catch (error) {
+      console.error('Error updating printer:', error.message);
+      res.status(500).json({ error: 'Failed to update printer' });
+    }
+  });
+
+  // Delete printer configuration
+  router.delete('/printers/:id', (req, res) => {
+    const printerId = req.params.id;
+    const initialLength = printerConfigs.length;
+    printerConfigs = printerConfigs.filter(p => p.id !== printerId);
+
+    if (printerConfigs.length === initialLength) {
+      return res.status(404).json({ error: 'Printer not found' });
+    }
+
+    try {
+      fs.writeFileSync(PRINTERS_FILE, JSON.stringify(printerConfigs, null, 2), 'utf8');
+      res.json({ message: 'Printer deleted successfully' });
+    } catch (error) {
+      console.error('Error deleting printer:', error.message);
+      res.status(500).json({ error: 'Failed to delete printer' });
+    }
+  });
+
+  // Get single printer status
+  router.get('/printer-status/:ip', async (req, res) => {
+    try {
+      const ip = req.params.ip;
+      const printer = printerConfigs.find(p => p.ip === ip);
+      if (!printer) {
+        return res.status(404).json({ error: 'Printer not found' });
+      }
+
+      const status = await printerService.getPrinterStatus(printer, systemSettings.papercut);
+      res.json(status);
+    } catch (error) {
+      console.error('Error getting printer status:', error);
+      res.status(500).json({ message: 'Failed to get printer status', error: error.message });
+    }
+  });
+
+// Get all printer statuses
+router.get('/all-printer-status', async (req, res) => {
+  try {
+    console.log('Fetching all printer statuses');
+    
+    // 使用printerService获取真实的打印机状态
+    const statuses = await printerService.getPrintersStatus(printerConfigs, systemSettings.papercut || {});
+    
+    console.log('Successfully fetched real printer statuses');
+    console.log('Status data count:', statuses.length);
+    
+    // 返回真实的打印机状态数据
+    res.json(statuses);
+    console.log('Response successfully sent with real printer status data');
+  } catch (error) {
+    console.error('Error in all-printer-status endpoint:', error);
+    // 错误情况下，返回一个包含错误信息的数组，而不是单个错误对象
+    const errorStatuses = printerConfigs.map(printer => ({
+      id: printer.id,
+      name: printer.name,
+      ip: printer.ip,
+      status: 'Error',
+      tonerLevels: {},
+      paperStatus: 'Unknown',
+      online: false,
+      error: error.message || 'Failed to fetch printer status',
+      source: 'error'
+    }));
+    res.status(200).json(errorStatuses); // 仍然返回200，前端可以处理status字段
+  }
+});
+
+// Get remaining license days
+router.get('/license-days', (req, res) => {
+  // 从settingsService实时获取最新的许可证到期日期，确保使用用户在system settings中保存的值
+  const expirationDateStr = settingsService.getLicenseExpirationDate();
+  const expirationDate = new Date(expirationDateStr);
+  const today = new Date();
+  const days = Math.max(differenceInDays(expirationDate, today), 0);
+  res.json({ remainingDays: days });
+});
+
+// System settings already loaded via file
+// let systemSettings = {
+//   email: {
+//     smtpHost: '',
+//     smtpPort: '',
+//     smtpUser: '',
+//     smtpPass: '',
+//     useTls: true
+//   },
+//   papercut: {
+//     host: '',
+//     port: '',
+//     username: '',
+//     password: ''
+//   },
+//   application: {
+//     reportFrequency: 'weekly',
+//     sendReminders: true,
+//     reminderDays: 3
+//   },
+//   license: {
+//     expirationDate: process.env.LICENSE_EXPIRATION_DATE || '2024-12-31'
+//   }
+
+
+// Get system settings
+router.get('/settings', (req, res) => {
+  console.log('System settings request received:', new Date().toISOString());
+  console.log('Request method:', req.method);
+  console.log('Request URL:', req.originalUrl);
+  console.log('Response data:', systemSettings);
+  res.json(systemSettings);
+});
+
+// Save system settings
+router.post('/settings', (req, res) => {
+  try {
+    // Save settings using settings service
+    systemSettings = settingsService.saveSettings(req.body);
+    
+    // Recreate email service with updated settings
+    emailService = createEmailService();
+    console.log('Email service reinitialized with updated settings');
+    
+    res.json({ message: 'Settings saved and persisted', settings: systemSettings });
+  } catch (error) {
+    console.error('Error saving settings:', error.message);
+    res.status(500).json({ message: 'Failed to save settings', error: error.message });
+  }
+});
+
+// Test email sending endpoint
+router.get('/test-email', async (req, res) => {
+  try {
+    const { to, from } = req.query;
+    
+    // Validate required parameters
+    if (!to) {
+      return res.status(400).json({ message: 'Recipient email is required' });
+    }
+    
+    // Use default from email if not provided
+    const fromEmail = from || process.env.DEFAULT_FROM_EMAIL || 'printer-report@example.com';
+    
+    console.log('Testing email sending:');
+    console.log('- From:', fromEmail);
+    console.log('- To:', to);
+    
+    // Get actual remaining license days and expiration date
+    const actualLicenseDays = printerService.getLicenseRemainingDays();
+    const licenseExpirationDate = settingsService.getLicenseExpirationDate();
+    
+    console.log('Using actual license remaining days:', actualLicenseDays);
+    console.log('Using actual license expiration date:', licenseExpirationDate);
+    
+    // 修复：调整参数格式以匹配emailService.sendWeeklyReport的定义
+    const testPrinters = [{ name: 'Test Printer', ip: '127.0.0.1', status: 'online', tonerLevels: { black: 100, cyan: 100, magenta: 100, yellow: 100 } }];
+    const emailData = {
+      startDate: '2023-01-01',
+      endDate: '2023-01-07',
+      toEmail: to,
+      fromEmail: fromEmail
+    };
+    
+    const testResult = await emailService.sendWeeklyReport(testPrinters, actualLicenseDays, emailData);
+    
+    res.json(testResult);
+  } catch (error) {
+    console.error('Error testing email:', error);
+    res.status(500).json({ message: 'Failed to test email', error: error.message });
+  }
+});
+
+// Generate and send weekly report
+router.post('/generate-report', async (req, res) => {
+  try {
+    const { startDate, endDate, toEmail, fromEmail, ccEmail, manualData, reportHtml } = req.body;
+
+    // Calculate default weekly report period (last week)
+    const defaultEndDate = addDays(new Date(), -1);
+    const defaultStartDate = addDays(defaultEndDate, -6);
+
+    // Format dates
+    const reportStartDate = startDate || format(defaultStartDate, 'yyyy-MM-dd');
+    const reportEndDate = endDate || format(defaultEndDate, 'yyyy-MM-dd');
+
+    // Get all printer statuses
+    let printersStatus = [];
+    if (manualData && manualData.length > 0) {
+      // Use manually input data
+      printersStatus = manualData;
+    } else {
+      // Auto fetch data
+      const statusPromises = printerConfigs.map(async (printer) => {
+        try {
+          // 尝试使用常规的API方式获取状态
+          let status = await printerService.getPrinterStatus(printer, systemSettings.papercut);
+          
+          // 检查是否是北京的打印机，或者是否需要使用网页抓取方式获取墨粉数据
+          const isBeijingPrinter = printer.name.includes('Beijing');
+          
+          // 首先尝试使用改进的网页抓取方式获取墨粉数据（适用于所有打印机）
+          try {
+            console.log(`Using enhanced web scraping method for printer ${printer.name} (IP: ${printer.ip})`);
+            // 使用我们修改的printerScraper.js中的网页抓取函数
+            const webpageTonerData = await printerScraper.scrapePrinterTonerData(printer.ip);
+            
+            // 只有当网页抓取返回了有效数据时才更新
+            if (webpageTonerData && (webpageTonerData.black > 0 || webpageTonerData.cyan > 0 || 
+                                   webpageTonerData.magenta > 0 || webpageTonerData.yellow > 0)) {
+              status.tonerLevels = webpageTonerData;
+              status.source = 'webpage (enhanced scraping)';
+              console.log(`Successfully updated ${printer.name} status with enhanced webpage data`);
+            }
+          } catch (scrapingError) {
+            console.warn(`Web scraping method failed for ${printer.name}:`, scrapingError.message);
+            // 网页抓取失败后，如果是北京的打印机或者墨粉数据仍无效，尝试使用OCR方式
+            if (isBeijingPrinter || !status.tonerLevels || Object.keys(status.tonerLevels).length === 0) {
+              try {
+                console.log(`Using screenshot OCR method for printer ${printer.name} (IP: ${printer.ip})`);
+                const screenshotOcrService = require('../services/screenshotOcrService');
+                const ocrTonerData = await screenshotOcrService.getTonerDataWithScreenshotOcr(printer.ip);
+                
+                // 合并OCR获取的墨粉数据
+                status.tonerLevels = ocrTonerData;
+                status.source = 'webpage (screenshot OCR)';
+                console.log(`Successfully updated ${printer.name} status with OCR data`);
+              } catch (ocrError) {
+                console.warn(`OCR method also failed for ${printer.name}:`, ocrError.message);
+                // OCR失败也不要覆盖已有的数据
+              }
+            }
+          }
+          
+          return status;
+        } catch (error) {
+          console.error(`Error getting status for printer ${printer.name}:`, error);
+          return {
+            ...printer,
+            ...printerService.getDefaultStatus(printer.ip)
+          };
+        }
+      });
+      printersStatus = await Promise.all(statusPromises);
+    }
+
+    // Get remaining license days
+    const licenseDays = printerService.getLicenseRemainingDays();
+    
+    // Prepare email data with ccEmail and frontend generated HTML
+    const emailData = {
+      startDate: reportStartDate,
+      endDate: reportEndDate,
+      toEmail,
+      fromEmail,
+      ccEmail,
+      reportHtml // 包含前端生成的HTML内容，确保邮件与预览一致
+    };
+
+    // Generate and send report with new method signature
+    // 如果提供了前端生成的HTML，则直接使用它
+    if (emailData.reportHtml) {
+      console.log('Using frontend generated HTML for email');
+      const result = await emailService.sendWeeklyReportWithCustomHtml(emailData.reportHtml, emailData);
+      res.json(result);
+    } else {
+      // 回退到后端生成HTML的方式
+      const result = await emailService.sendWeeklyReport(printersStatus, licenseDays, emailData);
+      res.json(result);
+    }
+  } catch (error) {
+    console.error('Error generating report:', error);
+    res.status(500).json({ message: 'Failed to generate report', error: error.message });
+  }
+});
+
+// Add printer screenshot OCR routes
+router.get('/printers/scrape/printer/:ip/toner/screenshot', async (req, res) => {
+  try {
+    const { ip } = req.params;
+    console.log(`Fetching printer toner data via screenshot OCR for IP: ${ip}`);
+    
+    // 使用screenshotOcrService获取墨粉数据
+    const screenshotOcrService = require('../services/screenshotOcrService');
+    const tonerData = await screenshotOcrService.getTonerDataWithScreenshotOcr(ip);
+    
+    res.json({
+      success: true,
+      data: tonerData,
+      source: 'webpage (screenshot OCR)'
+    });
+  } catch (error) {
+    console.error(`Error fetching printer data via screenshot OCR:`, error);
+    res.status(500).json({
+      success: false,
+      error: error.message || 'Failed to fetch printer data'
+    });
+  }
+});
+
+// Get remaining license days API
+router.get('/license-days', (req, res) => {
+  try {
+    console.log('###########################################');
+    console.log('## License days request received:', new Date().toISOString());
+    console.log('## Request method:', req.method);
+    console.log('## Request URL:', req.originalUrl);
+    
+    // Directly calculate license days here for debugging
+    const settingsService = require('../services/settingsService');
+    const expirationDateStr = settingsService.getLicenseExpirationDate();
+    const expirationDate = new Date(expirationDateStr);
+    const today = new Date();
+    const diffTime = expirationDate - today;
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    const licenseDays = Math.max(diffDays, 0);
+    
+    console.log('## Using expiration date:', expirationDateStr);
+    console.log('## Current date:', today.toISOString());
+    console.log('## Calculated remaining days:', licenseDays);
+    console.log('###########################################');
+    
+    res.json({ remainingDays: licenseDays });
+  } catch (error) {
+    console.error('###########################################');
+    console.error('## Error calculating license days:', error);
+    console.error('###########################################');
+    res.status(500).json({ message: 'Failed to calculate license days', error: error.message });
+  }
+});
+
+// Test route to verify response functionality
+router.get('/test-response', (req, res) => {
+  res.json({ test: 'success', timestamp: new Date().toISOString() });
+});
+
+// Get local server metrics
+router.get('/server-metrics', async (req, res) => {
+  try {
+    console.log('Request received for local server metrics:', new Date().toISOString());
+    const serverMonitoringService = require('../services/serverMonitoringService');
+    const metrics = await serverMonitoringService.getAllMetrics(req.query.useCache !== 'false');
+    res.json({
+      success: true,
+      data: metrics,
+      source: 'local'
+    });
+  } catch (error) {
+    console.error('Error getting local server metrics:', error);
+    res.status(500).json({
+      success: false,
+      error: error.message || 'Failed to get server metrics'
+    });
+  }
+});
+
+// Get remote server metrics
+router.get('/remote-server-metrics/:ip', async (req, res) => {
+  try {
+    const { ip } = req.params;
+    console.log(`Request received for remote server metrics for IP: ${ip}`, new Date().toISOString());
+    
+    // Validate IP address format
+    const ipRegex = /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
+    if (!ipRegex.test(ip)) {
+      return res.status(400).json({
+        success: false,
+        error: 'Invalid IP address format'
+      });
+    }
+    
+    const serverMonitoringService = require('../services/serverMonitoringService');
+    const metrics = await serverMonitoringService.monitorRemoteServer(ip);
+    
+    res.json({
+      success: true,
+      data: metrics,
+      source: 'remote'
+    });
+  } catch (error) {
+    console.error(`Error getting remote server metrics for IP ${req.params.ip}:`, error);
+    res.status(500).json({
+      success: false,
+      error: error.message || 'Failed to get remote server metrics'
+    });
+  }
+});
+
+module.exports = router;
